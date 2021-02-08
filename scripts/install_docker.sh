@@ -39,5 +39,5 @@ sudo apt-get install -y docker-ce
 #Start at system reboot
 sudo systemctl start docker && sudo systemctl enable docker
 
-#Add cloud_user to the docker group
-sudo usermod -aG docker cloud_user
+#Add <user> to the docker group
+sudo usermod -aG docker openrefine 
