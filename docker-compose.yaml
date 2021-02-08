@@ -1,13 +1,12 @@
 version: '3'
 services:
   openrefine_app:
-    container_name: openrefine_app
     restart: always
     build:
       context: .
       dockerfile: ./services/openrefine_apps/Dockerfile
     ports:
-      - 4444:3333
+      - 3333:4444
     volumes:
         - ./openrefine-app/data:/data
     networks:

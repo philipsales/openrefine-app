@@ -1,4 +1,4 @@
-# Deployment Instructions for OPENREFINE #
+# Manual Deployment Instructions for OPENREFINE #
 
 ## Hardware Server Requirements ##
 1. Single droplet for the master node (DigitalOcean)
@@ -22,68 +22,34 @@
     ```
 ## Server Monitoring and Terminal GUI for each node ##
 
-1. SSH to the OpenRefine droplet or server
+1. grant scripts permission 
     ```
-    ssh root@<openrefine-server_PublicIPAddress>
-    ```
-
-1. Install firewall and cockpit 
-    ```
-    $ sudo apt update
-    $ sudo apt -y install cockpit
-    $ sudo systemctl start cockpit.socket
-    $ sudo systemctl enable cockpit.socket
+    cd scripts
+    chmod u+x *.sh
     ```
 
-1. Access Cockpit web console
+1. install docker
     ```
-    https://public-ip-address-of-ubuntu-server:9090
-    ```
-
-## Installation of Java runtime and OpenRefine ##
-
-1. Download java installer 
-    ```
-    $ sudo su - 
-    $ sudo apt install -y default-jre
+    ./install_docker.sh
     ```
 
-1. Create User for **all nodes**
+1. install docker-compose
     ```
-    $ sudo adduser openrefine 
-    $ usermod -aG sudo openrefine 
-    ```
-    **Note: OpenRefine user is sudoer*
-    **Note: User password is op3nr3fin3@2020*
-
-1. Download archived OpenRefine installer 
-    ```
-    $ sudo su - OpenRefine
-    $ cd /home/OpenRefine
-    $ wget https://github.com/openrefine/openrefine/releases/download/3.3/openrefine-linux-3.3.tar.gz
-    $ wget https://github.com/OpenRefine/OpenRefine/releases/download/3.0/openrefine-linux-3.0.tar.gz
-
-    $ tar -zxvf openrefine-linux-3.3.tar.gz 
-    $ mv openrefine-linux-3.3.tar.gz/ openrefine-server-3.3
-    $ rm openRefine-linux-3.3.tar.gz 
+    ./install_docker-compose.sh
     ```
 
-1. Run OpenRefine as background daemon and allot 3Gb as RAM capacity
+1. create .htppasswd
     ```
-    $ nohup ./openrefine-server-3.3/refine -m 3500M -i localhost & 
-    ```
-
-1. Download OpenRefine client 
-    ```
-    $ wget https://github.com/opencultureconsulting/openrefine-client/releases/download/v0.3.8/openrefine-client_0-3-8_linux
-    $ mv openrefine-client_0-3-8_linux/ openrefine-client-0.3.8
-    $ sudo chmod u+x openrefine-client-0.3.8 
+    ./generate_htpasswd.sh
     ```
 
-1. Set Google Cloud auth credentials manually
+1. copy the password and user in the nginx/.htppasswd file
+    e.g.
     ```
-    cd root_project
-    #OPENREFINE
-    export GOOGLE_APPLICATION_CREDENTIALS="/Users/ghost/src/github/medcheck.projects/openrefine/secrets/dev-medchek-pipeline-9390dbeea154.json" 
-    gcloud auth activate-service-account --key-file=secrets/dev-medchek-pipeline-9390dbeea154.json 
+    philip:$apr1$feHyY8xI$aS39wI0/hlEGGiqFrHmhi.
+    ```
+
+1. run docker-compose
+    ```
+    docker-compose up -d
     ```
