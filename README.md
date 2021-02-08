@@ -1,9 +1,9 @@
 # Manual Deployment Instructions for OPENREFINE #
 
 ## Hardware Server Requirements ##
-1. Single droplet for the master node (DigitalOcean)
+1. Single vm for the master node 
     ```
-    Standard / Shared CPU / 1vCPU / 2 GB Memory / 50 GB Disk / SGP1 - Ubuntu 18.04.3 (LTS) x64
+    Standard / Shared CPU / 2vCPU / 16 GB Memory / 20 GB Disk / SGP1 - Ubuntu 18.04.3 (LTS) x64
     ```
 
 ## Operation System Requirements ##
@@ -15,11 +15,8 @@
     ID_LIKE="bionic beaver"
     VERSION_ID="18"
     PRETTY_NAME="Ubuntu LTS (Core)"
-
-    arch: 3.10.0-1062.18.1.el7.x86_64
-    cpu MHz:  2500.000 
-    MemTotal: 1843112 kB (1.8GB RAM)
     ```
+    
 ## Server Monitoring and Terminal GUI for each node ##
 
 1. create user for **all nodes**
@@ -29,6 +26,8 @@
     ```
     **Note: OpenRefine user is sudoer*
     **Note: User password is op3nr3fin3@2020
+
+1. Log out and log back to host machine
 
 1. change to openrefine user
     ```
