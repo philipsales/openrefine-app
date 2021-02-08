@@ -18,6 +18,6 @@ WORKDIR /data
 EXPOSE 3333
 
 ENTRYPOINT ["/app/refine"]
-CMD ["-i", "0.0.0.0", "-d", "/data", "-m", "4G"]
+CMD ["-i", "0.0.0.0", "-d", "/data", "-m", "10G"]
 
 #docker container run -d -p 3333:3333 --name openrefine-appv3.0 openrefine-app
